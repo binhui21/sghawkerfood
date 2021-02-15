@@ -1,0 +1,17 @@
+.container {
+    width: 100px;
+    height: 60px;
+}
+
+.posts {
+    display: inline-block;
+    font-size: 20px;
+    padding: 20px;
+    width: 50%;
+    border: 15px solid green;
+    margin: 20px;
+}
+
+.embed-responsive .card-img-top {
+    object-fit: cover;
+}
