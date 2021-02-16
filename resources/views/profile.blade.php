@@ -1,4 +1,5 @@
 @extends('layouts.app')
+<script src="{{ mix('js/app.js') }}"></script>
 @section('content')
 
 @if(session()->get('deleted'))
