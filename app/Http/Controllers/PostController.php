@@ -104,14 +104,13 @@ class PostController extends Controller
      * @param  \App\Models\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function destroy()
+    public function destroy(Request $id)
     {
-        $post = Post::find('id');
+        $post = Post::find($id);
         $destroyed = $post->each->delete();
         if ($destroyed) {
-            return with('jsAlert', 'Post deleted.')->withInput();
-        } else {
-            return with('jsAlert', 'Post not deleted.')->withInput();
+            return redirect('/post/show/')->with('jsAlert', 'Post deleted.');
+            return back()->withInput();
         }
     }
 

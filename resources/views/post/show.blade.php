@@ -30,7 +30,8 @@
             <p>Open: {{$post->timeopen}}</p>
             <p>Close: {{$post->timeclose}}</p>
             <div class="d-flex flex-row">
-            <form action="{{ route('post.destroy', $post->id)}}" enctype="multipart/form-data" method="delete"> 
+            <form action="{{ route('post.destroy', $post->id)}}" enctype="multipart/form-data" method="POST"> 
+              @method('DELETE')
               @csrf
               <input type="hidden" name="id" value="{{ $post->id }}">
               <button type="submit" class="btn btn-primary m-1">Delete</button>
