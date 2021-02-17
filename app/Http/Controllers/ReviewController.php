@@ -17,7 +17,7 @@ class ReviewController extends Controller
         $review = Review::find($id);
         $destroyed = $review->each->delete();
         if ($destroyed) {
-            return view('profile')->with('jsAlert', 'Review deleted.');
+            return redirect('profile')->with('jsAlert', 'Review deleted.');
             return back()->withInput();
         }
     }

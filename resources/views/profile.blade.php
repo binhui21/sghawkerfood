@@ -40,7 +40,8 @@
           <p class="card-text" style="height: 70px">{{$review->caption}}</p>
           <p class="card-text" style="height: 10px">Rating: {{$review->rating}}</p>
           <div class="d-flex flex-row">
-            <form action="{{ route('review.destroy',$review->id)}}" enctype="multipart/form-data" method="delete"> 
+            <form action="{{ route('review.destroy',$review->id)}}" enctype="multipart/form-data" method="POST">
+              @method('DELETE')
               @csrf
               <input type="hidden" name="id" value="{{ $review->id }}">
               <button type="submit" class="btn btn-primary m-1">Delete</button>

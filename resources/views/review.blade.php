@@ -16,9 +16,13 @@
                     <p>Rating: {{round($avg_rating,1)}} / 10</p>
                 </div>   
             </div>
+            @guest
+            <h3 style="color:red">Please log in to review stall</h3>
+            @else
             <form action = "{{ route('review.create',$postselect->id)}}" enctype="multipart/form-data" method="createreview">
                 <button type="submit" class="btn btn-primary m-1">Review stall</button>
-            </form>  
+            </form>
+            @endguest  
         </div>
     </div>
 

@@ -33,7 +33,7 @@ Route::get('/post/show', [App\Http\Controllers\PostController::class, 'show'])->
 Route::post('/post/destroy', [App\Http\Controllers\PostController::class, 'destroy'])->name('post.destroy');
 
 Route::get('/review/{post_id}', [App\Http\Controllers\ReviewController::class, 'index'])->name('review');
-Route::delete('/review/destroy', [App\Http\Controllers\ReviewController::class, 'destroy'])->name('review.destroy');
+//Route::delete('/review/destroy', [App\Http\Controllers\ReviewController::class, 'destroy'])->name('review.destroy');
 Route::get('/review/edit', [App\Http\Controllers\ReviewController::class, 'edit'])->name('review.edit');
 Route::resource('review', App\Http\Controllers\ReviewController::class);
 Route::post('/review/{id}/update', [App\Http\Controllers\ReviewController::class, 'postEdit'])->name('review.postEdit');
