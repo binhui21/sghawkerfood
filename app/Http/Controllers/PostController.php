@@ -104,36 +104,48 @@ class PostController extends Controller
      * @param  \App\Models\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $id)
+    public function destroy()
     {
-        $post = Post::find($id);
+        $post = Post::find('id');
         $destroyed = $post->each->delete();
         if ($destroyed) {
             return with('jsAlert', 'Post deleted.')->withInput();
+        } else {
+            return with('jsAlert', 'Post not deleted.')->withInput();
         }
     }
 
     public function postEdit()
     {
-        $blogID = request('id');
-        $post = Post::where('id', $blogID)->first();
-        $post->title = request('title');
-        $post->caption = request('caption');
+        $post_id = request('id');
+        $post = Post::where('id', $post_id)->first();
         $imagePath = request('postpic')->store('uploads', 'public');
+        $post->stallname = request('stallname');
+        $post->caption = request('caption');
         $post->image = $imagePath;
+        $post->area = request('area');
+        $post->category = request('category');
+        $post->address = request('address');
+        $post->timeopen = request('timeopen');
+        $post->timeclose = request('timeclose');
         $saved = $post->save();
         if ($saved) {
-            return redirect('profile')->with('jsAlert', 'Post edited.');
+            return redirect('post/show')->with('jsAlert', 'Post edited.');
             return back()->withInput();
         }
     }
 
-    public function show(Request $id)
+    public function show()
     {
-        $post = Post::find($id);
-        $destroyed = $post->each->delete();
-        if ($destroyed) {
-            return redirect('/profile');
-        }
+        $user = Auth::user();
+        $profile = Profile::where('user_id', $user->id)->first();
+        $posts = Post::where('user_id', $user->id)->orderBy('created_at')->get();
+        $postscount = Post::where('user_id', $user->id)->count();
+        return view('post.show', [
+            'user' => $user,
+            'profile' => $profile,
+            'posts' => $posts,
+            'postscount' => $postscount
+        ]);
     }
 }

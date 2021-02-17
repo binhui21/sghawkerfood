@@ -12,17 +12,27 @@ use App\Models\Review;
 
 class ReviewController extends Controller
 {
+    public function destroy(Request $id)
+    {
+        $review = Review::find($id);
+        $destroyed = $review->each->delete();
+        if ($destroyed) {
+            return view('profile')->with('jsAlert', 'Review deleted.');
+            return back()->withInput();
+        }
+    }
+
     public function index($post_id)
     {
-        $user = Auth::user();
-        $profile = Profile::where('user_id', $user->id)->first();
-        $postsuser = Post::where('user_id', $user->id)->orderBy('created_at', 'desc')->get();
+        //$user = Auth::user();
+        //$profile = Profile::where('user_id', $user->id)->first();
+        //$postsuser = Post::where('user_id', $user->id)->orderBy('created_at', 'desc')->get();
         $postselect = Post::find($post_id);
-        $postscount = Post::where('user_id', $user->id)->count();
+        //$postscount = Post::where('user_id', $user->id)->count();
         $reviews = Review::where('post_id', $post_id)->orderBy('created_at')->get();
         $avg_rating = Review::where('post_id', $post_id)->avg('rating');
         return view('review', [
-            'profile' => $profile,
+            //'profile' => $profile,
             'postselect' => $postselect,
             'post_id' => $post_id,
             'reviews' => $reviews,
@@ -46,13 +56,13 @@ class ReviewController extends Controller
 
     public function store()
     {
-        /*$data = request()->validate([
+        $data = request()->validate([
             'post_id' => 'required',
             'title' => 'required',
             'caption' => 'required',
             'reviewpic' => ['required', 'image'],
             'rating' => 'required',
-        ]);*/
+        ]);
         $user = Auth::user();
         $review = new Review();
         $imagePath = request('reviewpic')->store('uploads', 'public');
@@ -75,15 +85,6 @@ class ReviewController extends Controller
         return view('editReview', [
             'review' => $review
         ]);
-    }
-
-    public function destroy(Request $id)
-    {
-        $review = Review::find($id);
-        $destroyed = $review->each->delete();
-        if ($destroyed) {
-            return with('jsAlert', 'Review deleted.')->withInput();
-        }
     }
 
     public function postEdit()

@@ -2,18 +2,7 @@
 <script src="{{ mix('js/app.js') }}"></script>
 @section('content')
 
-@if(session()->get('deleted'))
-    <div class="alert alert-success">
-        {{ session()->get('deleted') }}
-    </div>
-@endif
 <div class="container">
-    @if(session('jsAlert'))
-        <div class="alert alert-success">
-            {{ session('jsAlert') }}
-        </div>
-    @endif
-    
     <div class="row justify-content-center">
         <div class="container m-2 p-2" style="background-color:#b4e1f0">
             <div class="media">

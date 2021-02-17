@@ -24,7 +24,7 @@
 </div>
       
 @foreach($posts as $post)
-  <div class="posts ml-2" style="float:left">
+  <div class="posts m-2" style="float:left">
     <div class="card border border-primary">
       <div class="card-deck mx-1" style="width: 20rem">
         <div class="card-body">
